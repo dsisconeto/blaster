@@ -1,6 +1,9 @@
-package com.github.dsisconeto.blaster.service
+package com.github.dsisconeto.blaster
 
 import com.github.dsisconeto.blaster.model.Ear
+import com.github.dsisconeto.blaster.service.Discovery
+import com.github.dsisconeto.blaster.service.Extractor
+import com.github.dsisconeto.blaster.service.ManifestExtractor
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mock

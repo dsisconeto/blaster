@@ -1,5 +1,5 @@
 import com.github.dsisconeto.blaster.model.Ear
-import com.github.dsisconeto.blaster.service.Blaster
+import com.github.dsisconeto.blaster.Blaster
 import com.github.dsisconeto.blaster.service.Discovery
 import com.github.dsisconeto.blaster.service.Extractor
 import com.github.dsisconeto.blaster.service.ManifestExtractor
