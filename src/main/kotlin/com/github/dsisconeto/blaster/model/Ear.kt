@@ -1,7 +1,5 @@
 package com.github.dsisconeto.blaster.model
 
-import com.github.dsisconeto.blaster.support.removeExtension
-
 class Ear(
     name: String,
     artifactName: String,
@@ -28,6 +26,11 @@ class Ear(
 
     fun forEachSubModule(function: (module: Module) -> Unit) {
         subModules.forEach(function)
+    }
+
+
+    private fun String.removeExtension(): String {
+        return this.substring(0..this.length - 5)
     }
 
 }
