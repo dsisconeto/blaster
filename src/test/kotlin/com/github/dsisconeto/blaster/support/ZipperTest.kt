@@ -59,12 +59,12 @@ class ZipperTest {
         }
         assertTrue { earPath.toFile().exists() }
 
-        val directories = zipper.artifactsInRoot(earPath.toString(), listOf("war", "jar"))
+        val artifacts = zipper.artifactsInRoot(earPath.toString(), listOf("war", "jar"))
 
 
-        assertEquals(2, directories.count())
-        assertEquals("SisconetoDomain.jar", directories[0])
-        assertEquals("SisconetoWeb.war", directories[1])
+        assertEquals(2, artifacts.count())
+        assertEquals("SisconetoDomain.jar", artifacts[0])
+        assertEquals("SisconetoWeb.war", artifacts[1])
     }
 
     private fun createFileLog4jProperties() = Files.createFile(tempDirectory.resolve("log4j.properties")).toFile()
