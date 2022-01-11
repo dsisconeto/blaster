@@ -2,6 +2,7 @@ import com.github.dsisconeto.blaster.model.Ear
 import com.github.dsisconeto.blaster.service.Blaster
 import com.github.dsisconeto.blaster.service.Discovery
 import com.github.dsisconeto.blaster.service.Extractor
+import com.github.dsisconeto.blaster.service.ManifestExtractor
 import com.github.dsisconeto.blaster.support.Storage
 import com.github.dsisconeto.blaster.support.Zipper
 import java.io.InputStream
@@ -33,7 +34,11 @@ private fun propertiesFile(): InputStream {
     return applicationPath().resolve("blaster.properties").inputStream()
 }
 
-private fun blaster() = Blaster(extractor(), Discovery(currentPath(), Zipper()))
+private fun blaster() = Blaster(extractor(), discovery(), manifestExtractor())
+
+private fun manifestExtractor() = ManifestExtractor(extractor())
+
+private fun discovery() = Discovery(currentPath(), Zipper())
 
 
 private fun extractor() = Extractor(currentPath(), Storage(), Zipper())

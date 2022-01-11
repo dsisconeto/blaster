@@ -6,7 +6,8 @@ import org.apache.logging.log4j.kotlin.logger
 
 class Blaster(
     private val extractor: Extractor,
-    private val discovery: Discovery
+    private val discovery: Discovery,
+    private val manifestExtractor: ManifestExtractor
 ) {
     fun explode(ear: Ear) {
         extractEarArtifact(ear)
@@ -38,16 +39,7 @@ class Blaster(
     }
 
     private fun extractManifests(ear: Ear) {
-        logger().info("Explodindo MANIFEST.MFs dos submódulos.")
-        ear.forEachSubModule { subModule ->
-            logger().info { "Explodindo MANIFEST.MF do submódulo: ${subModule.name}" }
-            extractor.extract(
-                subModule.artifactDirectory,
-                "META-INF/MANIFEST.MF",
-                ear.explodedDirectoryOf(subModule)
-            )
-        }
-        logger().info("Explosão dos MANIFEST.MFs dos submódulos finaliza.")
+        manifestExtractor.extractFrom(ear)
     }
 
 

@@ -20,11 +20,14 @@ class BlasterTest() {
     @Mock
     private lateinit var discovery: Discovery
 
+    @Mock
+    private lateinit var manifestExtractor: ManifestExtractor
+
 
     @BeforeEach
     internal fun setUp() {
         openMocks(this)
-        blaster = Blaster(extractor, discovery)
+        blaster = Blaster(extractor, discovery, manifestExtractor)
     }
 
 
@@ -45,24 +48,14 @@ class BlasterTest() {
 
         blaster.explode(ear)
 
-        inOrder(extractor) {
+        inOrder(extractor, manifestExtractor) {
             verify(extractor).extract(
                 "/SisconetoEAR/target/Sisconeto.ear",
                 "/SisconetoEAR/target/exploded.ear"
             )
             verify(extractor).extract("/SisconetoEAR/target/exploded.ear/SisconetoWeb-1.0-SNAPSHOT.war")
             verify(extractor).extract("/SisconetoEAR/target/exploded.ear/SisconetoDomain-1.0-SNAPSHOT.jar")
-
-            verify(extractor).extract(
-                "/SisconetoWeb/target/SisconetoWeb-1.0-SNAPSHOT.war",
-                "META-INF/MANIFEST.MF",
-                "/SisconetoEAR/target/exploded.ear/SisconetoWeb-1.0-SNAPSHOT.war"
-            )
-            verify(extractor).extract(
-                "/SisconetoDomain/target/SisconetoDomain-1.0-SNAPSHOT.jar",
-                "META-INF/MANIFEST.MF",
-                "/SisconetoEAR/target/exploded.ear/SisconetoDomain-1.0-SNAPSHOT.jar"
-            )
+            verify(manifestExtractor).extractFrom(ear)
         }
     }
 
